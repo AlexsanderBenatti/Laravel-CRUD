@@ -19,6 +19,10 @@ Route::get('/', function() {
     return view('inicio');
 });
 
+Route::get('/cadastrar', function() {
+    return view('cadastrar');
+});
+
 Route::post('/cadastrar-produto', function(Request $request) {
     //dd($request->all());
 
