@@ -16,7 +16,8 @@ use App\Models\Produto;
 use Illuminate\Http\Request;
 
 Route::get('/', function() {
-    return view('inicio');
+    $produtos = Produto::all();
+    return view('inicio', ["produtos" => $produtos]);
 });
 
 Route::get('/cadastrar', function() {
@@ -32,7 +33,7 @@ Route::post('/cadastrar-produto', function(Request $request) {
         'estoque' => $request->estoque
     ]);
 
-    echo "Produto criado com sucesso";
+    return redirect('/');
 });
 
 Route::get('/listar-produto/{id}', function($id) {
@@ -57,7 +58,7 @@ Route::post('/editar-produto/{id}', function (Request $request, $id) {
         'estoque' => $request->estoque
     ]);
 
-    echo "Produto editado com sucesso!";
+    return redirect('/');
 });
 
 Route::get('/excluir-produto/{id}', function ($id){
@@ -65,5 +66,5 @@ Route::get('/excluir-produto/{id}', function ($id){
     $produto = Produto::find($id);
     $produto->delete();
 
-    echo "Produto excluido com sucesso!";
+    return redirect('/');
 });
