@@ -9,5 +9,8 @@ class Produto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'valor', 'estoque'];
+    protected $fillable = ['nome', 'valor', 'estoque', 'fornecedor_id'];
+    public function receive() {
+        return $this->belongsTo('App\Fornecedor', 'foreign_key');
+    }
 }

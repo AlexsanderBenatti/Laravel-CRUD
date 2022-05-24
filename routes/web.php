@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Models\Fornecedores;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Models\Produto;
 use Illuminate\Http\Request;
+
+Route::get('/fornecedores', function() {
+    $fornecedores = Fornecedores::all();
+    return view('fornecedores', ["fornecedores" => $fornecedores]);
+});
 
 Route::get('/', function() {
     $produtos = Produto::all();
@@ -30,7 +35,8 @@ Route::post('/cadastrar-produto', function(Request $request) {
     Produto::create([
         'nome' => $request->nome,
         'valor' => $request->valor,
-        'estoque' => $request->estoque
+        'estoque' => $request->estoque,
+        'fornecedor_id' => $request->fornecedor_id
     ]);
 
     return redirect('/');
@@ -55,7 +61,8 @@ Route::post('/editar-produto/{id}', function (Request $request, $id) {
     $produto->update([
         'nome' => $request->nome,
         'valor' => $request->valor,
-        'estoque' => $request->estoque
+        'estoque' => $request->estoque,
+        'fornecedor_id' => $request->fornecedor_id
     ]);
 
     return redirect('/');

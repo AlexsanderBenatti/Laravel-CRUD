@@ -19,6 +19,9 @@
         <label for="lblQuantidade">Quantidade:</label>
         <input type="text" name="estoque" value="{{ $produto->estoque }}">
         <br><br>
+        <label for="lblFornecedor">Id de fornecedor:</label>
+        <input type="text" name="fornecedor_id" value="{{ $produto->fornecedor_id }}">
+        <br><br>
         <button>Cadastrar</button>
     </form>
 </body>

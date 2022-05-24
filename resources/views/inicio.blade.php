@@ -13,11 +13,11 @@
             <div class="col-start-1 col-end-5 flex flex-col justify-center items-center">
                 <ul>
                 @foreach ($produtos as $produto)
-                <li class="text-white space-x-4 grid grid-cols-6 mb-2">
+                <li class="text-white space-x-4 grid grid-cols-7 mb-2">
                         <span class="flex justify-center">{{ $produto->id }}</span>
                         <span class="flex justify-center">{{ $produto->nome }}</span>
                         <span class="flex justify-center">{{ $produto->valor }}</span>
-                        <span class="flex justify-center">{{ $produto->estoque }}</span>
+                        <span class="flex justify-center">{{ $produto->fornecedor_id }}</span>
                         <a class="min-h-8 w-fit p-2 bg-blue-500" href="/excluir-produto/{{$produto->id}}">Excluir</a>
                         <a class="min-h-8 w-fit p-2 bg-blue-500" href="/editar-produto/{{$produto->id}}">Editar</a>
                 </li>
