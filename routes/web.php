@@ -17,7 +17,19 @@ use Illuminate\Http\Request;
 
 Route::get('/fornecedores', function() {
     $fornecedores = Fornecedores::all();
+    
     return view('fornecedores', ["fornecedores" => $fornecedores]);
+});
+
+Route::get("/fornecedores/{id}", function ($id) {
+    $fornecedor = Fornecedores::find($id);
+    $produtos = $fornecedor->products;
+
+    if (!is_null($fornecedor)) {
+        echo $produtos;
+    } else {
+        echo ("FORNECEDOR NÃO EXISTE");
+    }
 });
 
 Route::get('/', function() {
@@ -31,15 +43,21 @@ Route::get('/cadastrar', function() {
 
 Route::post('/cadastrar-produto', function(Request $request) {
     //dd($request->all());
+    $fornecedorId = $request->id;
+    $fornecedor = Fornecedores::find($fornecedorId);
 
-    Produto::create([
-        'nome' => $request->nome,
-        'valor' => $request->valor,
-        'estoque' => $request->estoque,
-        'fornecedor_id' => $request->fornecedor_id
-    ]);
-
-    return redirect('/');
+    if (!is_null($fornecedor)) {   
+        Produto::create([
+            'nome' => $request->nome,
+            'valor' => $request->valor,
+            'estoque' => $request->estoque,
+            'fornecedor_id' => $request->fornecedor_id
+        ]);
+        
+        return redirect('/');
+    } else {
+        echo("> FORNECEDOR NÃO EXISTE!");
+    }
 });
 
 Route::get('/listar-produto/{id}', function($id) {
