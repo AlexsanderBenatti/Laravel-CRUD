@@ -18,7 +18,19 @@ use Illuminate\Http\Request;
 
 Route::get('/fornecedores', function() {
     $fornecedores = Fornecedores::all();
+    
     return view('fornecedores', ["fornecedores" => $fornecedores]);
+});
+
+Route::get("/fornecedores/{id}", function ($id) {
+    $fornecedor = Fornecedores::find($id);
+    $produtos = $fornecedor->products;
+
+    if (!is_null($fornecedor)) {
+        echo $produtos;
+    } else {
+        echo ("FORNECEDOR NÃO EXISTE");
+    }
 });
 
 Route::get('/', function() {
