@@ -10,7 +10,7 @@ class Fornecedores extends Model
     use HasFactory;
 
     protected $fillable = ['nome', 'telefone', 'produto'];
-    public function post() {
-        return $this->hasMany('App\Produto', 'id');
+    public function produto() {
+        return $this->belongsTo(Produto::class);
     }
 }

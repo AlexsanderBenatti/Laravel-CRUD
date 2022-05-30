@@ -18,7 +18,7 @@ class CreateProdutosTable extends Migration
             $table->string('nome');
             $table->decimal('valor');
             $table->integer('estoque');
-            $table->integer('fornecedor_id');
+            $table->foreignId('fornecedores_id')->constrained();
             $table->timeStamps();
         });
     }

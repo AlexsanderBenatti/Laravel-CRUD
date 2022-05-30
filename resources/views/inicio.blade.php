@@ -17,7 +17,7 @@
                         <span class="flex justify-center">{{ $produto->id }}</span>
                         <span class="flex justify-center">{{ $produto->nome }}</span>
                         <span class="flex justify-center">{{ $produto->valor }}</span>
-                        <span class="flex justify-center">{{ $produto->fornecedor_id }}</span>
+                        <span class="flex justify-center">{{ $produto->fornecedores_id }}</span>
                         <a class="min-h-8 w-fit p-2 bg-blue-500" href="/excluir-produto/{{$produto->id}}">Excluir</a>
                         <a class="min-h-8 w-fit p-2 bg-blue-500" href="/editar-produto/{{$produto->id}}">Editar</a>
                 </li>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Fornecedores;
+use Illuminate\Database\QueryException;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,21 +32,27 @@ Route::get('/cadastrar', function() {
 
 Route::post('/cadastrar-produto', function(Request $request) {
     //dd($request->all());
-
-    Produto::create([
-        'nome' => $request->nome,
-        'valor' => $request->valor,
-        'estoque' => $request->estoque,
-        'fornecedor_id' => $request->fornecedor_id
-    ]);
-
-    return redirect('/');
+    try {
+        Produto::create([
+            'nome' => $request->nome,
+            'valor' => $request->valor,
+            'estoque' => $request->estoque,
+            'fornecedores_id' => $request->fornecedores_id
+        ]);
+        return redirect('/');
+    } catch (QueryException $exception) {
+        echo "Escreve direito arrombado";
+    }
 });
 
 Route::get('/listar-produto/{id}', function($id) {
     //dd(Produto::find($id)); //debug and die
     $produto = Produto::find($id);
     return view('listar', ['produto' => $produto]);
+});
+
+Route::get('/fornecedores/{id}', function($id) {
+    $fornecedor = Fornecedores::find($id);
 });
 
 Route::get('/editar-produto/{id}', function($id) {
@@ -62,7 +69,7 @@ Route::post('/editar-produto/{id}', function (Request $request, $id) {
         'nome' => $request->nome,
         'valor' => $request->valor,
         'estoque' => $request->estoque,
-        'fornecedor_id' => $request->fornecedor_id
+        'fornecedores_id' => $request->fornecedores_id
     ]);
 
     return redirect('/');
