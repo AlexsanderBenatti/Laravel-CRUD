@@ -53,7 +53,7 @@ Route::post('/cadastrar-produto', function(Request $request) {
         ]);
         return redirect('/');
     } catch (QueryException $exception) {
-        echo "Escreve direito arrombado";
+        echo "O id de fornecedor que você inseriu não existe";
     }
 });
 
