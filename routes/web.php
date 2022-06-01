@@ -16,9 +16,9 @@ use Illuminate\Database\QueryException;
 use App\Models\Produto;
 use Illuminate\Http\Request;
 
-Route::get('/fornecedores', function() {
+Route::get('/fornecedores', function () {
     $fornecedores = Fornecedores::all();
-    
+
     return view('fornecedores', ["fornecedores" => $fornecedores]);
 });
 
@@ -33,16 +33,16 @@ Route::get("/fornecedores/{id}", function ($id) {
     }
 });
 
-Route::get('/', function() {
+Route::get('/', function () {
     $produtos = Produto::all();
     return view('inicio', ["produtos" => $produtos]);
 });
 
-Route::get('/cadastrar', function() {
+Route::get('/cadastrar', function () {
     return view('cadastrar');
 });
 
-Route::post('/cadastrar-produto', function(Request $request) {
+Route::post('/cadastrar-produto', function (Request $request) {
     //dd($request->all());
     try {
         Produto::create([
@@ -57,17 +57,31 @@ Route::post('/cadastrar-produto', function(Request $request) {
     }
 });
 
-Route::get('/listar-produto/{id}', function($id) {
+Route::get('/cadastrarFornecedor', function () {
+    return view('cadastrarfornecedores');
+});
+
+Route::post('/cadastrar-fornecedor', function (Request $request) {
+    //dd($request->all());
+    Fornecedores::create([
+        'nome' => $request->nome,
+        'telefone' => $request->telefone,
+        'produto' => $request->produto,
+    ]);
+    return redirect('/fornecedores');
+});
+
+Route::get('/listar-produto/{id}', function ($id) {
     //dd(Produto::find($id)); //debug and die
     $produto = Produto::find($id);
     return view('listar', ['produto' => $produto]);
 });
 
-Route::get('/fornecedores/{id}', function($id) {
+Route::get('/fornecedores/{id}', function ($id) {
     $fornecedor = Fornecedores::find($id);
 });
 
-Route::get('/editar-produto/{id}', function($id) {
+Route::get('/editar-produto/{id}', function ($id) {
     //dd($request->all());
     $produto = Produto::find($id);
     return view('editar', ['produto' => $produto]);
@@ -87,7 +101,7 @@ Route::post('/editar-produto/{id}', function (Request $request, $id) {
     return redirect('/');
 });
 
-Route::get('/excluir-produto/{id}', function ($id){
+Route::get('/excluir-produto/{id}', function ($id) {
     //dd($request->all());
     $produto = Produto::find($id);
     $produto->delete();
